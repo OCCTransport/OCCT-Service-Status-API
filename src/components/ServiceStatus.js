@@ -3,7 +3,6 @@ import { Box, Text, Flex } from '@chakra-ui/react';
 import Route from './Route'; // Adjust the import path accordingly
 
 const ServiceStatus = ({ routes, setSelectedRoute }) => {
-  console.log(routes);
   return (
     <Box
       border="1px solid #2596be"
