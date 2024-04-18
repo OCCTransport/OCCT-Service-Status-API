@@ -29,7 +29,7 @@ const Route = ({ route, setSelectedRoute }) => {
         fontSize="16px"
         fontWeight="bold"
         mr="auto">
-        {route.name} Shuttle
+        {route.name}
       </Text>
       <Button
         backgroundColor="#fff"

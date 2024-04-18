@@ -5,7 +5,9 @@ import './App.css';
 import axios from 'axios';
 import LineStatus from './components/LineStatus';
 import { SocketContext } from './context/socket';
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = process.env.REACT_APP_URL
+  ? process.env.REACT_APP_URL
+  : "https://dispatch.occtransport.org";
 axios.interceptors.request.use(async function (config) {
   const token = await localStorage.getItem('messenger-token');
   config.headers['x-access-token'] = token;

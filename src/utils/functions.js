@@ -1,6 +1,6 @@
 export const getStatusColor = (status) => {
 	switch (status) {
-		case "On Time":
+		case "On or Close":
 			return "#00b200";
 		case "Delays":
 			return "#ff0000";

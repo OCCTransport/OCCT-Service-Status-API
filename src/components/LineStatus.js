@@ -39,7 +39,7 @@ const LineStatus = ({ route, setSelectedRoute }) => {
 						<Box w="26px" h="26px" bg={route.color} borderRadius="50%" />
 					</Flex>
 					<Text fontSize={["18px", "26px"]} fontWeight="bold">
-						{route.name} Shuttle
+						{route.name}
 					</Text>
 				</Flex>
 			</Flex>
