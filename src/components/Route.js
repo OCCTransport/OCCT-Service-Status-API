@@ -8,7 +8,14 @@ const Route = ({ route, setSelectedRoute }) => {
         ["Delays", "Planned Detour"].includes(update.type)
       ) !== -1
   );
-  console.log(hasNestedUpdate);
+  useEffect(() => {
+    setHasNestedUpdate(
+      route.bidirectional &&
+        route.serviceUpdates.findIndex((update) =>
+          ["Delays", "Planned Detour"].includes(update.type)
+        ) !== -1
+    );
+  }, [route]);
   return (
     <Flex
       align="center"
