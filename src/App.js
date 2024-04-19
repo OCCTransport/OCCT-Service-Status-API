@@ -7,7 +7,7 @@ import LineStatus from "./components/LineStatus";
 import { SocketContext } from "./context/socket";
 axios.defaults.baseURL = process.env.REACT_APP_URL
   ? process.env.REACT_APP_URL
-  : "https://dispatch.occtransport.org";
+  : "https://portal.occtransport.org/";
 axios.interceptors.request.use(async function (config) {
   const token = await localStorage.getItem("messenger-token");
   config.headers["x-access-token"] = token;

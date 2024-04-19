@@ -5,7 +5,7 @@ import React from "react";
 export const socket = io(
   process.env.REACT_APP_URL
     ? process.env.REACT_APP_URL
-    : "https://dispatch.occtransport.org"
+    : "https://portal.occtransport.org/"
 );
 socket.on("connect", () => {});
 export const SocketContext = React.createContext();
