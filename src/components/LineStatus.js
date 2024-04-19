@@ -1,29 +1,18 @@
 import React from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
-
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { getStatusColor } from "../utils/functions";
+import LineStatusItem from "./LineStatusItem";
 const LineStatus = ({ route, setSelectedRoute }) => {
-  const options = {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-    timeZone: "America/New_York", // Set to East Coast time zone
-  };
-
   return (
     <Box
-      border="1px solid gray"
-      borderRadius="12px"
+      border="1px solid #2596be"
+      borderRadius="5px"
       w={["100%", "100%"]}
       maxH="auto"
       minH={["600px", "450px"]}>
       <Flex
         align="center"
-        gap="18px">
+        gap="1.125rem">
         <Flex p={2}>
           <ArrowBackIcon
             onClick={() => setSelectedRoute(null)}
@@ -36,68 +25,75 @@ const LineStatus = ({ route, setSelectedRoute }) => {
           direction="column"
           align="start">
           <Flex
-            gap="12px"
+            gap="0.75rem"
             justify="center"
             align="center">
             <Text
-              fontSize={["18px", "26px"]}
+              fontSize={["1.125rem", "1.625rem"]}
               fontWeight="bold">
               Active Alerts for
             </Text>
             <Box
-              w="26px"
-              h="26px"
+              w="1.625rem"
+              h="1.625rem"
               bg={route.color}
               borderRadius="50%"
             />
           </Flex>
           <Text
-            fontSize={["18px", "26px"]}
+            fontSize={["1.125rem", "1.625rem"]}
             fontWeight="bold">
             {route.name}
           </Text>
         </Flex>
       </Flex>
-      <Flex
-        p={4}
-        borderTop="1px solid #000"
-        borderBottom={`1px solid ${getStatusColor(route.status)}`}
-        color={getStatusColor(route.status)}
-        fontWeight="bold">
-        {route.status}{" "}
-      </Flex>
+      {!route.bidirectional &&
+        route.serviceUpdates
+          .filter((serviceUpdate) => serviceUpdate.routeType === 0)
+          .map((serviceUpdate) => (
+            <LineStatusItem
+              key={serviceUpdate.type + serviceUpdate.id}
+              serviceUpdate={serviceUpdate}
+              routeType={route.routeType}
+            />
+          ))}
 
-      <Text
-        fontSize="16px"
-        pl={4}
-        mt={4}
-        fontWeight="500"
-        whiteSpace="pre-line">
-        {route.serviceUpdateText}
-      </Text>
-
-      <Text
-        fontSize="16px"
-        mt={2}
-        pl={4}
-        pr={4}
-        color="#d1d1d1
-">
-        Posted:{" "}
-        {new Date(route.updatedAt)
-          .toLocaleString("en-US", options)
-          .replace(",", "")}
-      </Text>
-      {route.status === "Planned Detour" && (
-        <Text
-          fontSize="16px"
-          pl={4}
-          color="#d1d1d1">
-          Expiration:{" "}
-          {new Date(route.expiration)
-            .toLocaleString("en-US", options)
-            .replace(",", "")}
-        </Text>
+      {route.bidirectional && (
+        <>
+          <Box borderTop="1px solid #000">
+            <Text
+              fontSize="18px"
+              fontWeight="bold"
+              textAlign="center">
+              INBOUND
+            </Text>
+            {route.serviceUpdates
+              .filter((serviceUpdate) => serviceUpdate.routeType === 1)
+              .map((serviceUpdate) => (
+                <LineStatusItem
+                  key={serviceUpdate.type + serviceUpdate.id}
+                  serviceUpdate={serviceUpdate}
+                  routeType={route.routeType}
+                />
+              ))}
+          </Box>
+          <Box borderTop="1px solid #000">
+            <Text
+              fontSize="18px"
+              fontWeight="bold"
+              textAlign="center">
+              OUTBOUND
+            </Text>
+            {route.serviceUpdates
+              .filter((serviceUpdate) => serviceUpdate.routeType === 2)
+              .map((serviceUpdate) => (
+                <LineStatusItem
+                  key={serviceUpdate.type + serviceUpdate.id}
+                  serviceUpdate={serviceUpdate}
+                />
+              ))}
+          </Box>
+        </>
       )}
     </Box>
   );
