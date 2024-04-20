@@ -8,6 +8,8 @@ export const getStatusColor = (status) => {
 			return "#979797";
 		case "Planned Detour":
 			return "#000";
+		case "Cancelled":
+			return "#FFA500";
 		default:
 			return "gray.500";
 	}

@@ -4,7 +4,8 @@ import { Flex, Text, Box } from "@chakra-ui/react";
 const LineStatusItem = ({ serviceUpdate }) => {
 	const getStatusColor = (status) => {
 		// Replace this with your actual getStatusColor logic
-		return status === "Delays" ? "red" : "green";
+		return status === "Delays" ? "red" : (status === "Cancelled" ? "orange" : "green");
+
 	};
 
 	const options = {
@@ -21,7 +22,7 @@ const LineStatusItem = ({ serviceUpdate }) => {
 		<Box mb={4}>
 			<Flex
 				p={4}
-				borderTop="1px solid #000"
+				borderTop="1px solid #2397be"
 				borderBottom={`1px solid ${getStatusColor(serviceUpdate.type)}`}
 				color={getStatusColor(serviceUpdate.type)}
 				fontWeight="bold"

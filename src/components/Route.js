@@ -5,14 +5,14 @@ const Route = ({ route, setSelectedRoute }) => {
   const [hasNestedUpdate, setHasNestedUpdate] = useState(
     route.bidirectional &&
       route.serviceUpdates.findIndex((update) =>
-        ["Delays", "Planned Detour"].includes(update.type)
+        ["Delays", "Planned Detour", "Cancelled"].includes(update.type)
       ) !== -1
   );
   useEffect(() => {
     setHasNestedUpdate(
       route.bidirectional &&
         route.serviceUpdates.findIndex((update) =>
-          ["Delays", "Planned Detour"].includes(update.type)
+          ["Delays", "Planned Detour", "Cancelled"].includes(update.type)
         ) !== -1
     );
   }, [route]);
@@ -51,6 +51,7 @@ const Route = ({ route, setSelectedRoute }) => {
         onClick={
           route.status === "Delays" ||
           route.status === "Planned Detour" ||
+          route.status === "Cancelled" ||
           hasNestedUpdate
             ? () => setSelectedRoute(route)
             : null
@@ -58,6 +59,7 @@ const Route = ({ route, setSelectedRoute }) => {
         textDecoration={
           route.status === "Delays" ||
           route.status === "Planned Detour" ||
+          route.status === "Cancelled" ||
           hasNestedUpdate
             ? "underline " + getStatusColor(route.status)
             : null

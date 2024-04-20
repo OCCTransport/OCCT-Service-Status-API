@@ -60,15 +60,15 @@ const LineStatus = ({ route, setSelectedRoute }) => {
 
       {route.bidirectional && (
         <>
-          <Box borderTop="1px solid #000">
+          <Box borderTop="1px solid #2397be">
             <Text
               fontSize="18px"
               fontWeight="bold"
               textAlign="center">
-              INBOUND
+              {route.abbreviation} Outbound
             </Text>
             {route.serviceUpdates
-              .filter((serviceUpdate) => serviceUpdate.routeType === 1)
+              .filter((serviceUpdate) => serviceUpdate.routeType === 2)
               .map((serviceUpdate) => (
                 <LineStatusItem
                   key={serviceUpdate.type + serviceUpdate.id}
@@ -77,19 +77,20 @@ const LineStatus = ({ route, setSelectedRoute }) => {
                 />
               ))}
           </Box>
-          <Box borderTop="1px solid #000">
+          <Box borderTop="1px solid #02397be">
             <Text
               fontSize="18px"
               fontWeight="bold"
               textAlign="center">
-              OUTBOUND
+              {route.abbreviation} Inbound
             </Text>
             {route.serviceUpdates
-              .filter((serviceUpdate) => serviceUpdate.routeType === 2)
+              .filter((serviceUpdate) => serviceUpdate.routeType === 1)
               .map((serviceUpdate) => (
                 <LineStatusItem
                   key={serviceUpdate.type + serviceUpdate.id}
                   serviceUpdate={serviceUpdate}
+                  routeType={route.routeType}
                 />
               ))}
           </Box>
